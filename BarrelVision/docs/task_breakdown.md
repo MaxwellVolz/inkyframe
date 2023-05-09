@@ -1,6 +1,5 @@
 
-
-TODO:
+# High Level Task Breakdown and Estimates:
 
 Write a web scraping script using a language and library of your choice (e.g., Python with BeautifulSoup or Scrapy).
 
@@ -27,10 +26,12 @@ Test the script locally to ensure that it works as expected.
 - Task 4.3: Test the error handling and logging mechanisms by intentionally introducing errors (e.g., invalid URLs) and verifying that the script handles them gracefully. (Estimate: 30 minutes)
 
 
-Annoying thing about web scraping that comes up every single time I look it up:
+One thing about web scraping that comes up with regularity:
 
 1. "Oh no don't scrape my website"
+2. Always respect the terms of service of the websites you're scraping, and don't overload their servers.
 
-How about this? Shut the fuck up. Imagine posting a flyer and then guarding it from anyone taking a picture of it.
+How about this? No. Imagine posting a flyer and then guarding it from anyone taking a picture.
 
-Absolutely asinine. I will share my tricks to help others take pictures of your stupid shit as much as I can. 
+Information should be free. Attributions are important. Onwards and upwards, together.
+ 

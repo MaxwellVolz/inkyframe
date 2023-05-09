@@ -1,31 +1,16 @@
-# Serverless Web Scraping with Python using AWS
+# Scraping 101 - BarrelVision
 
-## How it works
+- [Scraping 101 - BarrelVision](#scraping-101---barrelvision)
+  - [Magic Seaweed](#magic-seaweed)
+  - [Surfline](#surfline)
+  - [Scrape like a...person.](#scrape-like-aperson)
+    - [User-Agent Switching](#user-agent-switching)
+    - [Referrer Spoofing](#referrer-spoofing)
+    - [Cookies](#cookies)
 
-**Cloudwatch** triggers **Lambda** which executes **Python**
+## Magic Seaweed
 
-
-## Lets Brk it deeern
-
-1. Cloudwatch event trigger aka cronjob
-2. Lambda function
-    1. Lambda Layers
-        - loads dependencies from S3
-    2. Web scraping
-        - Python with Beautiful Soup
-    3. Save to S3
-
-## To Figure Out
-
-- AWS CDK
-  - Used for deploying cloud infra as a service
-  - how to integrate
-    - install AWS CDK
-    - install docker
-- AWS SAM (Serveless Application Model)
-  - Test and debug serverless code locally
-  - Enables CI/CD
-
+## Surfline
 
 ## Scrape like a...person. 
 
