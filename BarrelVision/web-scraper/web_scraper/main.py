@@ -34,7 +34,25 @@ print(soup.prettify())
 
 forecast_table = soup.select_one('#forecast-table')
 
-# Find the SVG element
+
+# Date
+today_selector = 'div > table > tbody > tr.forecast-table__row.forecast-table-days > td:nth-child(2) > div'
+name_of_date = forecast_table.select_one(f'{today_selector} > div:nth-child(1)').get_text()
+number_of_date = forecast_table.select_one(f'{today_selector} > div:nth-child(2)').get_text()
+
+# Rating
+wave_rating_selector = '#forecast-table > div > table > tbody > tr.forecast-table__row.forecast-table-rating'
+# wave_rating_8am = '> td:nth-child(11) > img'
+wave_rating_8am = forecast_table.select_one(f'{wave_rating_selector} > td:nth-child(1) > img').get('alt')
+
+wave_rating_8am = forecast_table.select_one(f'{wave_rating_selector}')
+# wave_rating_11am = forecast_table.select_one(f'{wave_height_selector} > td:nth-child(2) > img').get_text()
+# wave_rating_2pm = forecast_table.select_one(f'{wave_height_selector} > td:nth-child(3) > img').get_text()
+# wave_rating_5pm = forecast_table.select_one(f'{wave_height_selector} > td:nth-child(4) > img').get_text()
+# wave_rating_8pm = forecast_table.select_one(f'{wave_height_selector} > td:nth-child(5) > img').get_text()
+# wave_rating_11pm = forecast_table.select_one(f'{wave_height_selector} > td:nth-child(6) > img').get_text()
+
+# Wave Height
 wave_height_selector = 'div > table > tbody > tr:nth-child(5)'
 wave_height_8am = forecast_table.select_one(f'{wave_height_selector} > td:nth-child(2) > div > svg > text').get_text()
 wave_height_11am = forecast_table.select_one(f'{wave_height_selector} > td:nth-child(3) > div > svg > text').get_text()
@@ -44,15 +62,16 @@ wave_height_8pm = forecast_table.select_one(f'{wave_height_selector} > td:nth-ch
 wave_height_11pm = forecast_table.select_one(f'{wave_height_selector} > td:nth-child(7) > div > svg > text').get_text()
 
 
-t = PrettyTable(['Time', 'Wave Height'])
+t = PrettyTable(['Date', 'Day', 'Time', 'Wave Height', 'Wave Rating'])
 
 # Add rows
-t.add_row(['8am', wave_height_8am])
-t.add_row(['11am', wave_height_11am])
-t.add_row(['2pm', wave_height_2pm])
-t.add_row(['5pm', wave_height_5pm])
-t.add_row(['8pm', wave_height_8pm])
-t.add_row(['11pm', wave_height_11pm])
+t.add_row([number_of_date, name_of_date, '8am', wave_height_8am, wave_rating_8am])
+# t.add_row([number_of_date, name_of_date, '11am', wave_height_11am, wave_rating_11am])
+# t.add_row([number_of_date, name_of_date, '2pm', wave_height_2pm, wave_rating_2pm])
+# t.add_row([number_of_date, name_of_date, '5pm', wave_height_5pm, wave_rating_5pm])
+# t.add_row([number_of_date, name_of_date, '8pm', wave_height_8pm, wave_rating_8pm])
+# t.add_row([number_of_date, name_of_date, '11pm', wave_height_11pm, wave_rating_11pm])
+
 
 print(t)
 # Print the text
