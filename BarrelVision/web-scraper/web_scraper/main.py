@@ -30,56 +30,38 @@ with open('tests/surf-forecasts/forecast.html', 'r') as f:
 
 
 soup = BeautifulSoup(contents, 'html.parser')
-print(soup.prettify())
+# print(soup.prettify())
+from prettytable import PrettyTable
 
 forecast_table = soup.select_one('#forecast-table')
 
+# Define selectors
+selectors = {
+    'date': {
+        'name': 'div > table > tbody > tr.forecast-table__row.forecast-table-days > td:nth-child(2) > div > div:nth-child(1)',
+        'number': 'div > table > tbody > tr.forecast-table__row.forecast-table-days > td:nth-child(2) > div > div:nth-child(2)'
+    },
+    'wave_rating': 'div > table > tbody > tr.forecast-table__row.forecast-table-rating > td:nth-child({}) > img',
+    'wave_height': 'div > table > tbody > tr:nth-child(5) > td:nth-child({}) > div > svg > text'
+    # TODO: Add more selectors here as needed
+}
 
-# Date
-today_selector = 'div > table > tbody > tr.forecast-table__row.forecast-table-days > td:nth-child(2) > div'
-name_of_date = forecast_table.select_one(f'{today_selector} > div:nth-child(1)').get_text()
-number_of_date = forecast_table.select_one(f'{today_selector} > div:nth-child(2)').get_text()
+# Define the time points
+time_points = {'8am': 2, '11am': 3, '2pm': 4, '5pm': 5, '8pm': 6, '11pm': 7}
 
-# Rating
-wave_rating_selector = '#forecast-table > div > table > tbody > tr.forecast-table__row.forecast-table-rating'
-# wave_rating_8am = '> td:nth-child(11) > img'
-wave_rating_8am = forecast_table.select_one(f'{wave_rating_selector} > td:nth-child(1) > img').get('alt')
-
-wave_rating_8am = forecast_table.select_one(f'{wave_rating_selector}')
-# wave_rating_11am = forecast_table.select_one(f'{wave_height_selector} > td:nth-child(2) > img').get_text()
-# wave_rating_2pm = forecast_table.select_one(f'{wave_height_selector} > td:nth-child(3) > img').get_text()
-# wave_rating_5pm = forecast_table.select_one(f'{wave_height_selector} > td:nth-child(4) > img').get_text()
-# wave_rating_8pm = forecast_table.select_one(f'{wave_height_selector} > td:nth-child(5) > img').get_text()
-# wave_rating_11pm = forecast_table.select_one(f'{wave_height_selector} > td:nth-child(6) > img').get_text()
-
-# Wave Height
-wave_height_selector = 'div > table > tbody > tr:nth-child(5)'
-wave_height_8am = forecast_table.select_one(f'{wave_height_selector} > td:nth-child(2) > div > svg > text').get_text()
-wave_height_11am = forecast_table.select_one(f'{wave_height_selector} > td:nth-child(3) > div > svg > text').get_text()
-wave_height_2pm = forecast_table.select_one(f'{wave_height_selector} > td:nth-child(4) > div > svg > text').get_text()
-wave_height_5pm = forecast_table.select_one(f'{wave_height_selector} > td:nth-child(5) > div > svg > text').get_text()
-wave_height_8pm = forecast_table.select_one(f'{wave_height_selector} > td:nth-child(6) > div > svg > text').get_text()
-wave_height_11pm = forecast_table.select_one(f'{wave_height_selector} > td:nth-child(7) > div > svg > text').get_text()
-
-
+# Initialize table
 t = PrettyTable(['Date', 'Day', 'Time', 'Wave Height', 'Wave Rating'])
 
-# Add rows
-t.add_row([number_of_date, name_of_date, '8am', wave_height_8am, wave_rating_8am])
-# t.add_row([number_of_date, name_of_date, '11am', wave_height_11am, wave_rating_11am])
-# t.add_row([number_of_date, name_of_date, '2pm', wave_height_2pm, wave_rating_2pm])
-# t.add_row([number_of_date, name_of_date, '5pm', wave_height_5pm, wave_rating_5pm])
-# t.add_row([number_of_date, name_of_date, '8pm', wave_height_8pm, wave_rating_8pm])
-# t.add_row([number_of_date, name_of_date, '11pm', wave_height_11pm, wave_rating_11pm])
+# Get the date
+name_of_date = forecast_table.select_one(selectors['date']['name']).get_text()
+number_of_date = forecast_table.select_one(selectors['date']['number']).get_text()
 
+# Loop over each time point
+for time, tp in time_points.items():
+    wave_rating = forecast_table.select_one(selectors['wave_rating'].format(tp)).get('alt')
+    wave_height = forecast_table.select_one(selectors['wave_height'].format(tp)).get_text()
+
+    # Add row to table
+    t.add_row([number_of_date, name_of_date, time, wave_height, wave_rating])
 
 print(t)
-# Print the text
-# print(text.get_text())
-
-
-# print(forecast_table)
-
-
-# Print the extracted data
-# print(data)
