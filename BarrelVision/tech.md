@@ -1,5 +1,16 @@
 # Tech
 
+- [Tech](#tech)
+  - [Overview](#overview)
+  - [AWS Infrastructure](#aws-infrastructure)
+  - [Cloudwatch](#cloudwatch)
+  - [Lambda Functions](#lambda-functions)
+    - [Deploy the Script to AWS Lambda:](#deploy-the-script-to-aws-lambda)
+    - [Schedule the Lambda Function:](#schedule-the-lambda-function)
+  - [Upload to RDS](#upload-to-rds)
+  - [To Figure Out](#to-figure-out)
+
+
 **Cloudwatch** triggers a **Lambda** which executes **Python** to scrape data, saves to **MySQL**, consumed by **website**.
 
 ## Overview
@@ -16,7 +27,6 @@
 ## Cloudwatch
 
 ## Lambda Functions
-
 
 ### Deploy the Script to AWS Lambda:
     - Package the scraping script and its dependencies into a ZIP file.

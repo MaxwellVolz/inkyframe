@@ -1,6 +1,7 @@
 # Scraping 101 - BarrelVision
 
 - [Scraping 101 - BarrelVision](#scraping-101---barrelvision)
+  - [Surf-Forecast](#surf-forecast)
   - [Magic Seaweed](#magic-seaweed)
   - [Surfline](#surfline)
   - [Scrape like a...person.](#scrape-like-aperson)
@@ -8,9 +9,22 @@
     - [Referrer Spoofing](#referrer-spoofing)
     - [Cookies](#cookies)
 
+## [Surf-Forecast](https://www.surf-forecast.com/breaks/Blackies/forecasts/latest)
+
+Wave Height(8am):
+
+Selector:
+#forecast-table > div > table > tbody > tr:nth-child(5) > td:nth-child(2) > div > svg > text
+
+XPath:
+//*[@id="forecast-table"]/div/table/tbody/tr[5]/td[1]/div/svg/text
+
+Full XPath:
+/html/body/div[1]/div/div[2]/div[2]/div[2]/div[3]/div[5]/div[2]/div/div[3]/div/table/tbody/tr[5]/td[1]/div/svg/text
+
 ## Magic Seaweed
 
-## Surfline
+## [Surfline](https://www.surfline.com/surf-report/river-jetties/5842041f4e65fad6a77088ee?camId=5834a0223421b20545c4b581')
 
 ## Scrape like a...person. 
 

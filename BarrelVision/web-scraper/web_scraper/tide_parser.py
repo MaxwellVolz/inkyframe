@@ -5,17 +5,13 @@ from prettytable import PrettyTable
 def parse_tide_table(tide_soup):
     forecast_table = tide_soup.select_one('#contdiv > div.tide-table > div.has-inertia.tide-table__container > div > div > table > tbody')
 
-    sunrise = 'tr:nth-child(6) > td.tide-table__part.tide-table__part--sun.tide-table__part--first-shadow > div'
 
 
     # Define selectors
     selectors = {
         'date': 'tr:nth-child(1) > th:nth-child(1) > div',
-        'sun_rise': 'tr.forecast-table__row.forecast-table-rating > td:nth-child({}) > img',
-        'wave_height': 'tr:nth-child(5) > td:nth-child({}) > div > svg > text',
-        'wind_mph': 'tr:nth-child(9) > td:nth-child({}) > div > svg > text',
-        'wind_dir': 'tr:nth-child(9) > td:nth-child({}) > div > div'
-        # TODO: More selectors!
+        'sun_rise': 'tr:nth-child(6) > td.tide-table__part.tide-table__part--sun.tide-table__part--first-shadow > div',
+        'sun_set': 'tr:nth-child(6) > td.tide-table__part.tide-table__part--sun.tide-table__part--sunset.tide-table__part--last-shadow > div',
     }
 
     # Define the time points
@@ -26,6 +22,34 @@ def parse_tide_table(tide_soup):
 
     # Get the date
     name_of_date = forecast_table.select_one(selectors['date']).get_text()
+    sunrise = forecast_table.select_one(selectors['sun_rise']).get_text().strip()
+
+    # high_tides = forecast_table.select_one('#contdiv > div.tide-table > div.has-inertia.tide-table__container > div > div > table > tbody > tr:nth-child(4)')
+    # high_tides = forecast_table.find_all('span',{"class":"tide-table__value-high"})
+    # high_tides = forecast_table.find_all('td',{"class":"tide-table__value-high"})
+    high_tides = forecast_table.find_all('td', class_='tide-table__part tide-table__part--high tide-table__part--tide')[:4]
+    low_tides = forecast_table.find_all('td', class_='tide-table__part tide-table__part--low tide-table__part--tide')[:4]
+
+    results = []
+    print(high_tides)
+    print(low_tides)
+
+    for td in high_tides:
+    # Check if element is not of class "tide-table__tide-time-filler"
+        if not td.find('div', class_='tide-table__tide-time-filler'):
+            # Extract text from the spans for time, height, and units
+            time = td.find('span', class_='tide-table__value-high').text.strip()
+            height = td.find('span', class_='tide-table__height').text.strip()
+            units = td.find('span', class_='tide-table__units').text.strip()
+
+            # Add result to list
+            results.append((time, height, units))
+
+    # Print results
+    for result in results:
+        print(f'Time: {result[0]}, Height: {result[1]}, Units: {result[2]}')
+
+
     # number_of_date = forecast_table.select_one(selectors['date']['number']).get_text()
 
     # Loop over each time point
@@ -40,4 +64,4 @@ def parse_tide_table(tide_soup):
 
     
 
-    return name_of_date
+    return [name_of_date, sunrise]
