@@ -24,7 +24,7 @@ if DEV_MODE:
         wave_site_contents = f.read()
     wave_soup = BeautifulSoup(wave_site_contents, 'html.parser')
 
-    with open('tests/surf-forecasts/tides.html', 'r') as f:
+    with open('tests/surf-forecasts/tides_5_17.html', 'r') as f:
         tide_site_contents = f.read()
     tide_soup = BeautifulSoup(tide_site_contents, 'html.parser')
     

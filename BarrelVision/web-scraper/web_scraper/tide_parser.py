@@ -27,18 +27,39 @@ def parse_tide_table(tide_soup):
     # high_tides = forecast_table.select_one('#contdiv > div.tide-table > div.has-inertia.tide-table__container > div > div > table > tbody > tr:nth-child(4)')
     # high_tides = forecast_table.find_all('span',{"class":"tide-table__value-high"})
     # high_tides = forecast_table.find_all('td',{"class":"tide-table__value-high"})
-    high_tides = forecast_table.find_all('td', class_='tide-table__part tide-table__part--high tide-table__part--tide')[:4]
+    # high_tides = forecast_table.find_all('td', class_='tide-table__part tide-table__part--high tide-table__part--tide')
     low_tides = forecast_table.find_all('td', class_='tide-table__part tide-table__part--low tide-table__part--tide')[:4]
 
+    # Find all td elements that have all these three classes
+
+    high_tides = forecast_table.find_all('td', class_=lambda x: x and 'tide-table__part' in x and 'tide-table__part--high' in x and 'tide-table__part--tide' in x)[:4]
+    low_tides = forecast_table.find_all('td', class_=lambda x: x and 'tide-table__part' in x and 'tide-table__part--low' in x and 'tide-table__part--tide' in x)[:4]
+
     results = []
+    print('high_tides')
     print(high_tides)
+    print('low_tides')
     print(low_tides)
+
 
     for td in high_tides:
     # Check if element is not of class "tide-table__tide-time-filler"
         if not td.find('div', class_='tide-table__tide-time-filler'):
+            print(td)
             # Extract text from the spans for time, height, and units
             time = td.find('span', class_='tide-table__value-high').text.strip()
+            height = td.find('span', class_='tide-table__height').text.strip()
+            units = td.find('span', class_='tide-table__units').text.strip()
+
+            # Add result to list
+            results.append((time, height, units))
+
+    for td in low_tides:
+    # Check if element is not of class "tide-table__tide-time-filler"
+        if not td.find('div', class_='tide-table__tide-time-filler'):
+            print(td)
+            # Extract text from the spans for time, height, and units
+            time = td.find('span', class_='tide-table__value-low').text.strip()
             height = td.find('span', class_='tide-table__height').text.strip()
             units = td.find('span', class_='tide-table__units').text.strip()
 
