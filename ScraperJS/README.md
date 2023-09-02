@@ -21,9 +21,9 @@
 
 ## Data to Scrap
 
-### Frequency
+### Frequency - Scheduled Gulp Task
 
-1. 
+1. Daily "come alive" kicks off polling site for update
 
 ### Active
 

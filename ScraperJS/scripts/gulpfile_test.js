@@ -15,6 +15,7 @@ function performOncePerDay() {
     // Your code here (e.g., send data to AWS)
     hasRunToday = true;
 }
+
 function isTimeToRun() {
     const currentTime = new Date();
     const targetHour = 13;  // 9 AM
