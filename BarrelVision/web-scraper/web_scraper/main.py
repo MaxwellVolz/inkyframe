@@ -9,7 +9,7 @@ from bs4 import BeautifulSoup
 from wave_parser import parse_wave_table
 
 timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
-DEV_MODE = False 
+DEV_MODE = False
 
 directory = "soup"
 if not os.path.exists(directory):

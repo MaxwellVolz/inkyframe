@@ -1,0 +1,23 @@
+{
+    "emeraldwalk.runonsave": {
+        "commands": [
+            {
+                "match": "*parser.py",
+                "isAsync": true,
+                "cmd": "echo '*parser.py saved.'"
+            },
+            {
+                "match": "\\.txt$",
+                "cmd": "echo 'I am a .txt file ${file}.'"
+            },
+            {
+                "match": "\\.js$",
+                "cmd": "echo 'I am a .js file ${file}.'"
+            },
+            {
+                "match": ".*",
+                "cmd": "echo 'I am ${env.USERNAME}.'"
+            }
+        ]
+    }
+}
